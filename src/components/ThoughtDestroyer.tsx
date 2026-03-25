@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { getStormBgUrl, getPeaceBgUrl } from './backgrounds';
+// Real photo backgrounds from /public
 
 const METHODS: Record<string, { id: string; name: string; icon: string; msg: string }> = {
   shredder: { id: 'shredder', name: 'Shred It', icon: '✂️', msg: 'Your thought has been shredded into nothing.' },
@@ -312,14 +312,11 @@ export default function ThoughtDestroyer() {
     </div>
   );
 
-  const stormBg = getStormBgUrl();
-  const peaceBg = getPeaceBgUrl();
-
   return (
     <>
       {/* Backgrounds */}
-      <div className="bg-layer bg-storm" style={{ backgroundImage: stormBg, opacity: dark ? 1 : 0 }} />
-      <div className="bg-layer bg-peace" style={{ backgroundImage: peaceBg, opacity: dark ? 0 : 1 }} />
+      <div className="bg-layer bg-storm" style={{ backgroundImage: 'url(/bg-storm.png)', opacity: dark ? 1 : 0 }} />
+      <div className="bg-layer bg-peace" style={{ backgroundImage: 'url(/bg-peace.png)', opacity: dark ? 0 : 1 }} />
       {dark && <div className="rain" />}
       {dark && <div className="lightning-flash" />}
       {dark && <div className="storm-fog" />}
