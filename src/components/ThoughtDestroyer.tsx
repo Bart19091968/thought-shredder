@@ -276,8 +276,8 @@ export default function ThoughtDestroyer() {
   const renderDone = () => (
     <div className="fade-up" style={{ textAlign: 'center', padding: '48px 20px' }}>
       <div style={{ fontSize: '52px', marginBottom: '20px' }}>{method?.icon}</div>
-      <h2 style={{ fontSize: 'clamp(24px,4.5vw,36px)', marginBottom: '14px', color: '#2D4A30' }}>{method?.msg}</h2>
-      <p className="fade-up-d1" style={{ color: 'rgba(50,80,50,0.6)', fontSize: '16px', fontStyle: 'italic', marginBottom: '40px' }}>
+      <h2 style={{ fontSize: 'clamp(24px,4.5vw,36px)', marginBottom: '14px', color: '#1a1a1a' }}>{method?.msg}</h2>
+      <p className="fade-up-d1" style={{ color: '#333', fontSize: '16px', fontStyle: 'italic', marginBottom: '40px' }}>
         &ldquo;{doneQuote}&rdquo;
       </p>
       <div className="fade-up-d2" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -298,7 +298,7 @@ export default function ThoughtDestroyer() {
         }} style={{
           padding: '14px 32px', borderRadius: '100px',
           border: '1px solid rgba(90,144,66,0.25)', background: 'rgba(255,255,255,0.5)',
-          color: 'rgba(50,80,50,0.7)', fontSize: '15px', cursor: 'pointer',
+          color: '#1a1a1a', fontSize: '15px', cursor: 'pointer',
           fontFamily: "'Nunito Sans', sans-serif",
         }}>Share ✨</button>
       </div>
@@ -319,6 +319,7 @@ export default function ThoughtDestroyer() {
 
         <header style={{ padding: 'clamp(8px,2vh,16px) 0 16px' }}>
           <OdometerCounter count={counter} bumping={bumping} dark={dark} />
+          {phase !== 'done' && (
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
             <h1 className="fade-up-d1" style={{
               fontSize: 'clamp(28px,5.5vw,52px)', lineHeight: 1.15, fontWeight: 600, letterSpacing: '-0.3px',
@@ -336,6 +337,7 @@ export default function ThoughtDestroyer() {
               Type it, upload it, erase it. Nothing is saved.
             </p>
           </div>
+          )}
         </header>
 
         <main style={{ padding: '8px 0 40px' }} role="main">
