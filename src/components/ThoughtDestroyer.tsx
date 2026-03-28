@@ -145,7 +145,7 @@ export default function ThoughtDestroyer() {
     const m = METHODS[key];
     setMethod(m); setPhase('destroying');
     if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(100);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
     const dur: Record<string, number> = { shredder: 2800, fire: 3000, flush: 2500 };
     timerRef.current = setTimeout(async () => {
       try {
@@ -159,7 +159,7 @@ export default function ThoughtDestroyer() {
       setTimeout(() => setBumping(false), 500);
       setDoneQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
       setPhase('done');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
     }, (dur[key] || 3000) + 400);
   };
 
@@ -167,7 +167,7 @@ export default function ThoughtDestroyer() {
     setPhase('input'); setInputType(null); setTextVal(''); setFileName('');
     if (photoPreview) URL.revokeObjectURL(photoPreview);
     setPhotoPreview(null); setMethod(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
   };
 
   useEffect(() => () => {
