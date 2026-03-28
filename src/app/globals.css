@@ -141,7 +141,7 @@ h1, h2, h3, h4 {
 }
 .destroy-btn:hover:not(:disabled) { transform: translateY(-6px) scale(1.03); }
 .destroy-btn:active:not(:disabled) { transform: translateY(-2px) scale(0.98); }
-.destroy-btn:disabled { opacity: 0.25; cursor: not-allowed; filter: grayscale(0.5); }
+.destroy-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(0.2); }
 
 /* ── Destruction animations ── */
 @keyframes shredAnim {
@@ -178,6 +178,7 @@ h1, h2, h3, h4 {
 }
 
 textarea:focus, input:focus { outline: none; }
+textarea::placeholder { color: rgba(255,255,255,0.45); }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }

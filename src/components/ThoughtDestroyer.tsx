@@ -47,7 +47,7 @@ function OdometerCounter({ count, bumping, dark }: { count: number; bumping: boo
   return (
     <div className="odometer-wrap fade-up">
       <div>
-        <div className="odometer-label" style={{ color: dark ? 'rgba(255,255,255,0.45)' : 'rgba(60,80,60,0.5)' }}>
+        <div className="odometer-label" style={{ color: dark ? 'rgba(255,255,255,0.6)' : 'rgba(60,80,60,0.5)' }}>
           Thoughts destroyed
         </div>
         <div className={`odometer-digits ${bumping ? 'counter-bump' : ''}`}>
@@ -80,9 +80,9 @@ function TrustBadge({ dark }: { dark: boolean }) {
     <div style={{
       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
       padding: '10px 20px', borderRadius: '100px',
-      background: dark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.4)',
-      border: `1px solid ${dark ? 'rgba(255,255,255,0.1)' : 'rgba(100,160,100,0.3)'}`,
-      fontSize: '13px', color: dark ? 'rgba(255,255,255,0.5)' : 'rgba(60,90,60,0.7)',
+      background: dark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.4)',
+      border: `1px solid ${dark ? 'rgba(255,255,255,0.2)' : 'rgba(100,160,100,0.3)'}`,
+      fontSize: '13px', color: dark ? 'rgba(255,255,255,0.7)' : 'rgba(60,90,60,0.7)',
       maxWidth: 'fit-content', margin: '0 auto',
     }}>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -187,9 +187,9 @@ export default function ThoughtDestroyer() {
     if (photoPreview) URL.revokeObjectURL(photoPreview);
   }, []);
 
-  const txt = dark ? 'rgba(255,255,255,0.9)' : '#2D4A30';
-  const sub = dark ? 'rgba(255,255,255,0.5)' : 'rgba(50,80,50,0.6)';
-  const faint = dark ? 'rgba(255,255,255,0.25)' : 'rgba(50,80,50,0.35)';
+  const txt = dark ? 'rgba(255,255,255,0.95)' : '#2D4A30';
+  const sub = dark ? 'rgba(255,255,255,0.65)' : 'rgba(50,80,50,0.6)';
+  const faint = dark ? 'rgba(255,255,255,0.35)' : 'rgba(50,80,50,0.35)';
 
   const renderInput = () => (
     <div className="fade-up" style={{ maxWidth: '740px', margin: '0 auto' }}>
@@ -199,13 +199,13 @@ export default function ThoughtDestroyer() {
           placeholder="Type what you want to destroy…" rows={3} maxLength={2000}
           style={{
             width: '100%', padding: '18px 20px', borderRadius: '16px',
-            border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(0,0,0,0.3)',
+            border: '1px solid rgba(255,255,255,0.3)', background: 'rgba(0,0,0,0.45)',
             backdropFilter: 'blur(12px)', fontSize: '16px', lineHeight: 1.6,
             fontFamily: "'Nunito Sans', sans-serif", color: 'rgba(255,255,255,0.9)',
             resize: 'vertical', minHeight: '100px', transition: 'border-color 0.2s, box-shadow 0.2s',
           }}
-          onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.06)'; }}
-          onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; e.currentTarget.style.boxShadow = 'none'; }}
+          onFocus={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.1)'; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; e.currentTarget.style.boxShadow = 'none'; }}
         />
         {textVal && <div style={{ textAlign: 'right', fontSize: '12px', color: 'rgba(255,255,255,0.3)', marginTop: '4px' }}>{textVal.length}/2000</div>}
       </div>
@@ -216,14 +216,14 @@ export default function ThoughtDestroyer() {
           padding: '10px 20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)',
           background: inputType === 'document' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)',
           cursor: 'pointer', fontSize: '13px', fontFamily: "'Nunito Sans', sans-serif",
-          color: 'rgba(255,255,255,0.55)', display: 'flex', alignItems: 'center', gap: '8px',
+          color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '8px',
         }}>📄 Upload a document</button>
         <input ref={photoRef} type="file" accept="image/*" onChange={handlePhoto} hidden />
         <button onClick={() => photoRef.current?.click()} style={{
           padding: '10px 20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)',
           background: inputType === 'photo' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)',
           cursor: 'pointer', fontSize: '13px', fontFamily: "'Nunito Sans', sans-serif",
-          color: 'rgba(255,255,255,0.55)', display: 'flex', alignItems: 'center', gap: '8px',
+          color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '8px',
         }}>📷 Upload a photo</button>
       </div>
 
@@ -243,7 +243,7 @@ export default function ThoughtDestroyer() {
             border: '1px solid rgba(255,255,255,0.08)' }}>
           <div className="btn-icon" style={{ fontSize: '52px', marginBottom: '10px' }}>✂️</div>
           <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '22px', fontWeight: 600, color: 'rgba(255,255,255,0.9)' }}>Shred It</div>
-          <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginTop: '6px' }}>Cut it to ribbons</div>
+          <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.55)', marginTop: '6px' }}>Cut it to ribbons</div>
         </button>
 
         <button className="destroy-btn btn-fire fade-up-d2" disabled={!hasInput} onClick={() => destroy('fire')}
@@ -252,7 +252,7 @@ export default function ThoughtDestroyer() {
             border: '1px solid rgba(255,150,50,0.12)' }}>
           <div className="btn-icon" style={{ fontSize: '52px', marginBottom: '10px' }}>🔥</div>
           <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '22px', fontWeight: 600, color: 'rgba(255,255,255,0.9)' }}>Burn It</div>
-          <div style={{ fontSize: '12px', color: 'rgba(255,200,150,0.45)', marginTop: '6px' }}>Watch it turn to ash</div>
+          <div style={{ fontSize: '12px', color: 'rgba(255,200,150,0.6)', marginTop: '6px' }}>Watch it turn to ash</div>
         </button>
 
         <button className="destroy-btn btn-flush fade-up-d3" disabled={!hasInput} onClick={() => destroy('flush')}
@@ -261,12 +261,12 @@ export default function ThoughtDestroyer() {
             border: '1px solid rgba(100,200,220,0.1)' }}>
           <div className="btn-icon" style={{ fontSize: '52px', marginBottom: '10px' }}>🚽</div>
           <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '22px', fontWeight: 600, color: 'rgba(255,255,255,0.9)' }}>Flush It</div>
-          <div style={{ fontSize: '12px', color: 'rgba(150,220,230,0.45)', marginTop: '6px' }}>Swirl it down the drain</div>
+          <div style={{ fontSize: '12px', color: 'rgba(150,220,230,0.6)', marginTop: '6px' }}>Swirl it down the drain</div>
         </button>
       </div>
 
       {!hasInput && (
-        <p className="fade-up-d3" style={{ textAlign: 'center', marginTop: '18px', fontSize: '13px', color: 'rgba(255,255,255,0.25)', fontStyle: 'italic' }}>
+        <p className="fade-up-d3" style={{ textAlign: 'center', marginTop: '18px', fontSize: '13px', color: 'rgba(255,255,255,0.4)', fontStyle: 'italic' }}>
           Type something or upload a file to unlock destruction
         </p>
       )}
@@ -324,7 +324,7 @@ export default function ThoughtDestroyer() {
       <div style={{ position: 'relative', zIndex: 2, maxWidth: '960px', margin: '0 auto', padding: '0 20px' }}>
         <div style={{ padding: '16px 0 0' }}><AdZone label="Leaderboard · 728×90" dark={dark} /></div>
 
-        <header style={{ padding: 'clamp(20px,4vh,40px) 0 16px' }}>
+        <header style={{ padding: 'clamp(8px,2vh,16px) 0 16px' }}>
           <OdometerCounter count={counter} bumping={bumping} dark={dark} />
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
             <h1 className="fade-up-d1" style={{
@@ -334,11 +334,11 @@ export default function ThoughtDestroyer() {
               marginBottom: '12px', transition: 'color 1.5s ease, text-shadow 1.5s ease',
               fontFamily: "'Cormorant Garamond', serif",
             }}>
-              Destroy a bad thought.
+              What is bothering you today ...
             </h1>
             <p className="fade-up-d2" style={{
               fontSize: 'clamp(13px,2vw,16px)', marginBottom: '14px', transition: 'color 1.5s ease',
-              color: dark ? 'rgba(255,255,255,0.4)' : 'rgba(50,80,50,0.55)',
+              color: dark ? 'rgba(255,255,255,0.7)' : 'rgba(50,80,50,0.55)',
             }}>
               Type it, upload it, erase it. Nothing is saved.
             </p>
@@ -364,12 +364,12 @@ export default function ThoughtDestroyer() {
                 { n: '3', t: 'Watch it vanish', d: 'See it destroyed. Nothing is saved, ever.' },
               ].map((s, i) => (
                 <div key={i} className="fade-up" style={{ animationDelay: `${i * 0.1}s`, textAlign: 'center', padding: '28px 20px', borderRadius: '16px',
-                  background: 'rgba(0,0,0,0.2)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)',
+                  background: 'rgba(0,0,0,0.2)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.12)' }}>
+                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.12)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px',
-                    fontFamily: "'Cormorant Garamond', serif", fontSize: '18px', fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>{s.n}</div>
-                  <h3 style={{ fontSize: '16px', marginBottom: '6px', fontWeight: 600, color: 'rgba(255,255,255,0.85)' }}>{s.t}</h3>
-                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.45)', lineHeight: 1.6 }}>{s.d}</p>
+                    fontFamily: "'Cormorant Garamond', serif", fontSize: '18px', fontWeight: 600, color: 'rgba(255,255,255,0.85)' }}>{s.n}</div>
+                  <h3 style={{ fontSize: '16px', marginBottom: '6px', fontWeight: 600, color: 'rgba(255,255,255,0.95)' }}>{s.t}</h3>
+                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>{s.d}</p>
                 </div>
               ))}
             </div>
