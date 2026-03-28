@@ -8,7 +8,7 @@ const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_ID;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'ThoughtShredder — Destroy Bad Thoughts',
+    default: 'ThoughtShredder — What is bothering you today?',
     template: '%s | ThoughtShredder',
   },
   description:

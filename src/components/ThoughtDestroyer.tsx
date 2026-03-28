@@ -65,28 +65,12 @@ function OdometerCounter({ count, bumping, dark }: { count: number; bumping: boo
 function AdZone({ label, dark }: { label: string; dark: boolean }) {
   return (
     <div className="ad-zone" style={{
-      borderColor: dark ? 'rgba(255,255,255,0.12)' : 'rgba(60,80,60,0.15)',
-      color: dark ? 'rgba(255,255,255,0.2)' : 'rgba(60,80,60,0.3)',
-      background: dark ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.25)',
+      borderColor: dark ? 'rgba(255,255,255,0.06)' : 'rgba(60,80,60,0.08)',
+      color: dark ? 'rgba(255,255,255,0.1)' : 'rgba(60,80,60,0.15)',
+      background: 'transparent', padding: '8px',
     }}>
       {/* Replace with real AdSense ad unit */}
       Ad Space · {label}
-    </div>
-  );
-}
-
-function TrustBadge({ dark }: { dark: boolean }) {
-  return (
-    <div style={{
-      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-      padding: '10px 20px', borderRadius: '100px',
-      background: dark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.4)',
-      border: `1px solid ${dark ? 'rgba(255,255,255,0.2)' : 'rgba(100,160,100,0.3)'}`,
-      fontSize: '13px', color: dark ? 'rgba(255,255,255,0.7)' : 'rgba(60,90,60,0.7)',
-      maxWidth: 'fit-content', margin: '0 auto',
-    }}>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Nothing is stored. Everything is released.
     </div>
   );
 }
@@ -126,7 +110,7 @@ export default function ThoughtDestroyer() {
   const [fileName, setFileName] = useState('');
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [method, setMethod] = useState<typeof METHODS[string] | null>(null);
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(8455);
   const [bumping, setBumping] = useState(false);
   const [doneQuote, setDoneQuote] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
@@ -160,6 +144,7 @@ export default function ThoughtDestroyer() {
     if (!hasInput) return;
     const m = METHODS[key];
     setMethod(m); setPhase('destroying');
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(100);
     const dur: Record<string, number> = { shredder: 2800, fire: 3000, flush: 2500 };
     timerRef.current = setTimeout(async () => {
       try {
@@ -213,16 +198,16 @@ export default function ThoughtDestroyer() {
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '8px' }}>
         <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.txt,.rtf" onChange={handleFile} hidden />
         <button onClick={() => fileRef.current?.click()} style={{
-          padding: '10px 20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)',
+          padding: '14px 20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)',
           background: inputType === 'document' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)',
-          cursor: 'pointer', fontSize: '13px', fontFamily: "'Nunito Sans', sans-serif",
+          cursor: 'pointer', fontSize: '14px', fontFamily: "'Nunito Sans', sans-serif",
           color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '8px',
         }}>📄 Upload a document</button>
         <input ref={photoRef} type="file" accept="image/*" onChange={handlePhoto} hidden />
         <button onClick={() => photoRef.current?.click()} style={{
-          padding: '10px 20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)',
+          padding: '14px 20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)',
           background: inputType === 'photo' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)',
-          cursor: 'pointer', fontSize: '13px', fontFamily: "'Nunito Sans', sans-serif",
+          cursor: 'pointer', fontSize: '14px', fontFamily: "'Nunito Sans', sans-serif",
           color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: '8px',
         }}>📷 Upload a photo</button>
       </div>
@@ -302,12 +287,20 @@ export default function ThoughtDestroyer() {
           color: '#fff', fontSize: '15px', fontWeight: 600, cursor: 'pointer',
           fontFamily: "'Nunito Sans', sans-serif", boxShadow: '0 4px 20px rgba(90,144,66,0.35)',
         }}>Destroy another one</button>
-        <button onClick={reset} style={{
+        <button onClick={() => {
+          const text = 'I just destroyed a bad thought ✨ Try it yourself:';
+          const url = window.location.href;
+          if (typeof navigator !== 'undefined' && navigator.share) {
+            navigator.share({ title: 'ThoughtShredder', text, url }).catch(() => {});
+          } else {
+            navigator.clipboard?.writeText(`${text} ${url}`).then(() => alert('Link copied!')).catch(() => {});
+          }
+        }} style={{
           padding: '14px 32px', borderRadius: '100px',
           border: '1px solid rgba(90,144,66,0.25)', background: 'rgba(255,255,255,0.5)',
           color: 'rgba(50,80,50,0.7)', fontSize: '15px', cursor: 'pointer',
           fontFamily: "'Nunito Sans', sans-serif",
-        }}>Take a breath ✨</button>
+        }}>Share ✨</button>
       </div>
     </div>
   );
@@ -342,7 +335,6 @@ export default function ThoughtDestroyer() {
             }}>
               Type it, upload it, erase it. Nothing is saved.
             </p>
-            <div className="fade-up-d3"><TrustBadge dark={dark} /></div>
           </div>
         </header>
 
@@ -355,21 +347,21 @@ export default function ThoughtDestroyer() {
         <div style={{ padding: '8px 0 32px' }}><AdZone label="In-content · Responsive" dark={dark} /></div>
 
         {phase === 'input' && (
-          <section style={{ padding: '32px 0 48px' }}>
-            <h2 className="fade-up" style={{ textAlign: 'center', fontSize: 'clamp(22px,4vw,32px)', marginBottom: '32px', color: txt }}>How It Works</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', maxWidth: '700px', margin: '0 auto' }}>
+          <section style={{ padding: '24px 0 32px' }}>
+            <h2 className="fade-up" style={{ textAlign: 'center', fontSize: 'clamp(20px,3.5vw,28px)', marginBottom: '20px', color: txt }}>How It Works</h2>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '700px', margin: '0 auto' }}>
               {[
-                { n: '1', t: 'Write or upload', d: 'Type your frustration, or upload a document or photo.' },
-                { n: '2', t: 'Pick your weapon', d: 'Shred it, burn it, or flush it. Your choice.' },
-                { n: '3', t: 'Watch it vanish', d: 'See it destroyed. Nothing is saved, ever.' },
+                { n: '1', t: 'Write or upload', d: 'Type your frustration, or upload a file.' },
+                { n: '2', t: 'Pick your weapon', d: 'Shred it, burn it, or flush it.' },
+                { n: '3', t: 'Watch it vanish', d: 'See it destroyed. Nothing is saved.' },
               ].map((s, i) => (
-                <div key={i} className="fade-up" style={{ animationDelay: `${i * 0.1}s`, textAlign: 'center', padding: '28px 20px', borderRadius: '16px',
-                  background: 'rgba(0,0,0,0.2)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.12)' }}>
-                  <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.12)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px',
-                    fontFamily: "'Cormorant Garamond', serif", fontSize: '18px', fontWeight: 600, color: 'rgba(255,255,255,0.85)' }}>{s.n}</div>
-                  <h3 style={{ fontSize: '16px', marginBottom: '6px', fontWeight: 600, color: 'rgba(255,255,255,0.95)' }}>{s.t}</h3>
-                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>{s.d}</p>
+                <div key={i} className="fade-up" style={{ animationDelay: `${i * 0.1}s`, textAlign: 'center', padding: '20px 16px', borderRadius: '14px',
+                  background: 'rgba(0,0,0,0.2)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.12)', flex: '1 1 180px', minWidth: '150px' }}>
+                  <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.12)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 10px',
+                    fontFamily: "'Cormorant Garamond', serif", fontSize: '16px', fontWeight: 600, color: 'rgba(255,255,255,0.85)' }}>{s.n}</div>
+                  <h3 style={{ fontSize: '15px', marginBottom: '4px', fontWeight: 600, color: 'rgba(255,255,255,0.95)' }}>{s.t}</h3>
+                  <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', lineHeight: 1.5 }}>{s.d}</p>
                 </div>
               ))}
             </div>
@@ -390,12 +382,13 @@ export default function ThoughtDestroyer() {
         <div style={{ padding: '16px 0 24px' }}><AdZone label="Bottom banner · 728×90" dark={dark} /></div>
 
         <footer style={{ textAlign: 'center', padding: '32px 0', borderTop: `1px solid ${faint}`, fontSize: '13px', color: faint, transition: 'all 1s ease' }}>
-          <p style={{ marginBottom: '8px' }}>ThoughtShredder · A symbolic release tool</p>
+          <p style={{ marginBottom: '8px' }}>ThoughtShredder · A Symbolic Release tool</p>
           <p>No data is stored. No accounts needed. Just let go.</p>
           <div style={{ marginTop: '16px', display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {['Privacy', 'Terms', 'About', 'Contact'].map(l => (
-              <a key={l} href="#" style={{ color: faint, textDecoration: 'none' }}>{l}</a>
-            ))}
+            <a href="/faq" style={{ color: faint, textDecoration: 'none' }}>FAQ</a>
+            <a href="/faq#privacy" style={{ color: faint, textDecoration: 'none' }}>Privacy</a>
+            <a href="/faq#therapy" style={{ color: faint, textDecoration: 'none' }}>About</a>
+            <a href="mailto:hello@thoughtshredder.com" style={{ color: faint, textDecoration: 'none' }}>Contact</a>
           </div>
         </footer>
       </div>
