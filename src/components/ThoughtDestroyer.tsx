@@ -116,6 +116,22 @@ export default function ThoughtDestroyer() {
   const fileRef = useRef<HTMLInputElement>(null);
   const photoRef = useRef<HTMLInputElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const topRef = useRef<HTMLDivElement>(null);
+
+  const scrollToTop = () => {
+    // Multiple strategies for cross-browser mobile support
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      topRef.current?.scrollIntoView();
+    }, 50);
+  };
+
+  // Scroll to top on every phase change
+  useEffect(() => {
+    scrollToTop();
+  }, [phase]);
 
   // Load counter from API
   useEffect(() => {
@@ -145,7 +161,7 @@ export default function ThoughtDestroyer() {
     const m = METHODS[key];
     setMethod(m); setPhase('destroying');
     if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(100);
-    window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
+
     const dur: Record<string, number> = { shredder: 2800, fire: 3000, flush: 2500 };
     timerRef.current = setTimeout(async () => {
       try {
@@ -159,7 +175,7 @@ export default function ThoughtDestroyer() {
       setTimeout(() => setBumping(false), 500);
       setDoneQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
       setPhase('done');
-      window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
+  
     }, (dur[key] || 3000) + 400);
   };
 
@@ -167,7 +183,7 @@ export default function ThoughtDestroyer() {
     setPhase('input'); setInputType(null); setTextVal(''); setFileName('');
     if (photoPreview) URL.revokeObjectURL(photoPreview);
     setPhotoPreview(null); setMethod(null);
-    window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
+
   };
 
   useEffect(() => () => {
@@ -318,6 +334,7 @@ export default function ThoughtDestroyer() {
       {dark && <div className="storm-fog" />}
 
       <div style={{ position: 'relative', zIndex: 2, maxWidth: '960px', margin: '0 auto', padding: '0 20px' }}>
+        <div ref={topRef} />
         <div style={{ padding: '16px 0 0' }}><AdZone label="Leaderboard · 728×90" dark={dark} /></div>
 
         <header style={{ padding: 'clamp(8px,2vh,16px) 0 16px' }}>
